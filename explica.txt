@@ -1,0 +1,15 @@
+Este código faz o seguinte:
+
+    file = msoffcrypto.OfficeFile(open("sheets\Controle-Manaus.xlsx", "rb")): Este trecho de código cria um objeto OfficeFile da biblioteca msoffcrypto para trabalhar com um arquivo Excel. Ele abre o arquivo "Controle-Manaus.xlsx" no modo de leitura binária ("rb").
+
+    file.load_key(password="123456"): Isso carrega a chave de desbloqueio do arquivo Excel usando a senha fornecida, que é "123456" neste caso. A senha é necessária para desbloquear o arquivo Excel criptografado.
+
+    decrypted = BytesIO(): Isso cria um objeto BytesIO, que é um buffer de bytes em memória.
+
+    file.decrypt(decrypted): Aqui, o código descriptografa o conteúdo do arquivo Excel usando a chave carregada anteriormente e armazena o resultado no objeto decrypted. Isso é necessário porque o arquivo Excel está criptografado e precisa ser desbloqueado antes de ser lido como um DataFrame.
+
+    df = pd.read_excel(decrypted): Finalmente, o código usa a biblioteca pandas (pd) para ler o conteúdo descriptografado do arquivo Excel, que está no objeto decrypted, e o transforma em um DataFrame (df). Agora você pode trabalhar com os dados do Excel como um DataFrame do pandas.
+
+    print(df): Isso imprime o DataFrame resultante na saída padrão, mostrando os dados contidos no arquivo Excel.
+
+Em resumo, este código descriptografa um arquivo Excel criptografado com uma senha específica e, em seguida, lê o conteúdo descriptografado como um DataFrame do pandas para que você possa manipular os dados do Excel no Python. Certifique-se de ter a biblioteca msoffcrypto instalada para executar esse código.

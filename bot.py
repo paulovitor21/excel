@@ -27,6 +27,11 @@ from botcity.web import WebBot, Browser, By
 # Import for integration with BotCity Maestro SDK
 from botcity.maestro import *
 
+# Import openpyxl
+import pandas as pd
+import msoffcrypto 
+from io import BytesIO
+
 # Disable errors if we are not connected to Maestro
 BotMaestroSDK.RAISE_NOT_CONNECTED = False
 
@@ -53,11 +58,22 @@ def main():
     # bot.driver_path = "<path to your WebDriver binary>"
 
     # Opens the BotCity website.
-    bot.browse("https://www.botcity.dev")
+    # bot.browse("https://www.botcity.dev")
 
     # Implement here your logic...
     ...
+    
 
+    file = msoffcrypto.OfficeFile(open("sheets\Controle-Manaus.xlsx", "rb"))
+
+    file.load_key(password="123456") 
+
+    decrypted = BytesIO() 
+    file.decrypt(decrypted)
+
+    df = pd.read_excel(decrypted)
+
+    print(df)
     # Wait 3 seconds before closing
     bot.wait(3000)
 
